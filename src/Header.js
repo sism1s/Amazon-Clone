@@ -32,7 +32,9 @@ function Header() {
 
       <div className="header__nav">
         <div onClick={handleAuthentication} className="header__option">
-          <span className="header__optionLineOne">Hello Guest</span>
+          <span className="header__optionLineOne">
+            Hello, {!user ? "Guest" : user.email}
+          </span>
           <Link
             to={!user && "/login"}
             style={{ textDecoration: "none", color: "white" }}

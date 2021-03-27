@@ -7,6 +7,7 @@ import Checkout from "./Checkout";
 import { useEffect } from "react";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
+import Payment from "./Payment";
 
 function App() {
   const [{ basket }, dispatch] = useStateValue();
@@ -37,6 +38,10 @@ function App() {
           <Route exact path="/checkout">
             <Header />
             <Checkout />
+          </Route>
+          <Route exact path="/payment">
+            <Header />
+            <Payment />
           </Route>
           <Route path="/">
             <Header />
