@@ -64,7 +64,7 @@ function Login() {
             onClick={signIn}
             className="login__signInButton"
           >
-            Sing In
+            Sign In
           </button>
         </form>
 

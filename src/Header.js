@@ -40,14 +40,18 @@ function Header() {
             style={{ textDecoration: "none", color: "white" }}
           >
             <span className="header__optionLineTwo">
-              {user ? "Sing Out" : "Sing In"}
+              {user ? "Sign Out" : "Sign In"}
             </span>
           </Link>
         </div>
-        <div className="header__option">
-          <span className="header__optionLineOne">Returns</span>
-          <span className="header__optionLineTwo">& Orders</span>
-        </div>
+
+        <Link to="/orders" style={{ textDecoration: "none" }}>
+          <div className="header__option">
+            <span className="header__optionLineOne">Returns</span>
+            <span className="header__optionLineTwo">& Orders</span>
+          </div>
+        </Link>
+
         <div className="header__option">
           <span className="header__optionLineOne">Your</span>
           <span className="header__optionLineTwo">Prime</span>
