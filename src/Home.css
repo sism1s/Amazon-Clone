@@ -4,13 +4,21 @@
   margin-left: auto;
   margin-right: auto;
   max-width: 1500px;
+  margin-bottom: 10px;
 }
 
-.home__row {
+.home__category {
   display: flex;
   z-index: 1;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.home__category__link {
+  display: flex;
+  text-decoration: none;
+  width: 100%;
+  color: #131921;
 }
 
 .home__image {

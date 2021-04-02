@@ -1,6 +1,7 @@
 export const initialState = {
   basket: [],
   user: null,
+  category: "",
 };
 
 export const getBasketTotal = (basket) =>
@@ -44,6 +45,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+      };
+
+    case "SET_CATEGORY":
+      return {
+        category: action.item,
       };
 
     default:
