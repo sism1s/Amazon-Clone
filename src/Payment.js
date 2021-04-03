@@ -8,6 +8,7 @@ import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
 import axios from "./axios";
 import { db } from "./firebase";
+import { InsertEmoticon } from "@material-ui/icons";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -102,7 +103,7 @@ function Payment() {
                 title={item.title}
                 image={item.image}
                 price={item.price}
-                rating={item.rating}
+                description={item.description}
               />
             ))}
           </div>

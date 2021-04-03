@@ -10,7 +10,7 @@ function Home() {
   const setCategory = (event) => {
     dispatch({
       type: "SET_CATEGORY",
-      item: event,
+      category: event,
     });
   };
 

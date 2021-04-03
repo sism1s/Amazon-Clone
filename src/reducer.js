@@ -49,7 +49,8 @@ const reducer = (state, action) => {
 
     case "SET_CATEGORY":
       return {
-        category: action.item,
+        ...state,
+        category: action.category,
       };
 
     default:
