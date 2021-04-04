@@ -1,38 +1,54 @@
 import React, { useEffect, useState } from "react";
+import "./SearchList.css";
 import Loader from "./Loader";
 import Product from "./Product";
-import "./ProductList.css";
 import { useStateValue } from "./StateProvider";
 
-function ProductList() {
-  const [{ basket, category }, dispatch] = useStateValue();
+function SearchList() {
+  const [{ basket, user, searchValue }, dispatch] = useStateValue();
   const [items, setItems] = useState([]);
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/category/${category}`)
+    fetch(`https://fakestoreapi.com/products`)
       .then((res) => res.json())
       .then((productsArray) => {
         const newProductsState = productsArray.map((product) => {
           return product;
         });
         setItems(newProductsState);
-        setLoader(false);
       });
-  }, [category]);
+  }, []);
+
+  console.log(items);
+
+  let searchProducts = items.filter((product) => {
+    if (searchValue.length === 0) {
+      return "";
+    } else {
+      return product.title.toLowerCase().includes(searchValue?.toLowerCase());
+    }
+  });
+
+  //   useEffect(() => {
+  //     dispatch({
+  //       type: "SET_SEARCH_VALUE",
+  //       searchValue: "",
+  //     });
+  //   }, []);
 
   return (
-    <div className="productList">
+    <div className="searchList">
       <img
-        className="productList__image"
+        className="searchList__image"
         src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
         alt="Amazon banner"
       />
 
-      {loader ? (
-        <Loader />
+      {searchProducts.length === 0 ? (
+        <loader />
       ) : (
-        items.map((product) => (
+        searchProducts.map((product) => (
           <Product
             key={product.id}
             id={product.id}
@@ -47,4 +63,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default SearchList;

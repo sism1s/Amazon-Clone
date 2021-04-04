@@ -19,7 +19,7 @@ function CheckoutProduct({ id, image, title, price, description, hideButton }) {
         <p className="checkoutProduct__title">{title}</p>
         <p className="checkoutProduct__price">
           <small>£</small>
-          <strong>{price}</strong>
+          <strong>{price.toFixed(2)}</strong>
         </p>
         <div className="checkoutProduct__rating">
           <p>{description}</p>

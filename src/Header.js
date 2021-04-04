@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
@@ -7,7 +7,8 @@ import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
 
 function Header() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ basket, user, searchValue }, dispatch] = useStateValue();
+  const [searchInput, setSearchInput] = useState("");
 
   const handleAuthentication = () => {
     if (user) {
@@ -15,9 +16,30 @@ function Header() {
     }
   };
 
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const setSearchValue = (event) => {
+    dispatch({
+      type: "SET_SEARCH_VALUE",
+      searchValue: event,
+    });
+  };
+
+  const resetSearchValue = (event) => {
+    dispatch({
+      type: "SET_SEARCH_VALUE",
+      searchValue: event,
+    });
+    setSearchInput("");
+  };
+
+  console.log(searchValue);
+
   return (
     <div className="header">
-      <Link to="/">
+      <Link to="/" onClick={() => resetSearchValue("")}>
         <img
           src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
           alt="Amazon logo"
@@ -26,8 +48,23 @@ function Header() {
       </Link>
 
       <div className="header__search">
-        <input className="header__searchInput" type="text" />
-        <SearchIcon className="header__searchIcon" />
+        <input
+          className="header__searchInput"
+          type="text"
+          value={searchInput}
+          onChange={handleInputChange}
+          onKeyPress={(e) => {
+            if (e.charCode === 13) {
+              setSearchValue(searchInput);
+            }
+          }}
+        />
+        <SearchIcon
+          className="header__searchIcon"
+          onClick={() => {
+            setSearchValue(searchInput);
+          }}
+        />
       </div>
 
       <div className="header__nav">

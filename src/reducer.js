@@ -2,6 +2,7 @@ export const initialState = {
   basket: [],
   user: null,
   category: "",
+  searchValue: "",
 };
 
 export const getBasketTotal = (basket) =>
@@ -51,6 +52,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         category: action.category,
+      };
+
+    case "SET_SEARCH_VALUE":
+      return {
+        ...state,
+        searchValue: action.searchValue,
       };
 
     default:

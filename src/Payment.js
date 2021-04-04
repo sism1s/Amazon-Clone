@@ -13,7 +13,7 @@ import { InsertEmoticon } from "@material-ui/icons";
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
-  const totalPrice = Math.round(getBasketTotal(basket) * 100);
+  const totalPrice = Math.round(getBasketTotal(basket).toFixed(2) * 100);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -37,6 +37,8 @@ function Payment() {
     };
     getClientSecret();
   }, [basket]);
+  console.log(totalPrice);
+  console.log(basket);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -99,6 +101,7 @@ function Payment() {
           <div className="payment__items">
             {basket.map((item) => (
               <CheckoutProduct
+                key={item.id}
                 id={item.id}
                 title={item.title}
                 image={item.image}
@@ -122,7 +125,7 @@ function Payment() {
                 <CurrencyFormat
                   renderText={(value) => <h3>Order Total: {value}</h3>}
                   decimalScale={2}
-                  value={getBasketTotal(basket)}
+                  value={getBasketTotal(basket).toFixed(2)}
                   displayType={"text"}
                   thousandSeparator={true}
                   prefix={"£"}

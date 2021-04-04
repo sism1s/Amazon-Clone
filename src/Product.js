@@ -17,9 +17,6 @@ function Product({ id, title, image, price, description }) {
       },
     });
   };
-  console.log(category);
-  console.log(basket);
-  console.log(id, title, image);
 
   return (
     <div className="product" key={id}>
@@ -27,7 +24,7 @@ function Product({ id, title, image, price, description }) {
         <h4>{title}</h4>
         <p className="product__price">
           <small>£</small>
-          <strong>{price}</strong>
+          <strong>{price.toFixed(2)}</strong>
         </p>
         <div className="product__description">
           <p>{description}</p>
