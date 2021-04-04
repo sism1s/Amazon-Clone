@@ -13,7 +13,7 @@ import { InsertEmoticon } from "@material-ui/icons";
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
-  const totalPrice = Math.round(getBasketTotal(basket).toFixed(2) * 100);
+  const totalPrice = Math.round(getBasketTotal(basket) * 100);
 
   const stripe = useStripe();
   const elements = useElements();
