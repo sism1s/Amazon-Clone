@@ -32,6 +32,7 @@ function Header() {
       type: "SET_SEARCH_VALUE",
       searchValue: event,
     });
+
     setSearchInput("");
   };
 
