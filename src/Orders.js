@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { db } from "./firebase";
 import Order from "./Order";
 import "./Orders.css";
+import SearchList from "./SearchList";
 import { useStateValue } from "./StateProvider";
 
 function Orders() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ basket, user, searchValue }, dispatch] = useStateValue();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -27,14 +28,20 @@ function Orders() {
     }
   }, []);
   return (
-    <div className="orders">
-      <h1>Your Orders</h1>
-      <div className="orders__order">
-        {orders?.map((order) => (
-          <Order order={order} />
-        ))}
-      </div>
-    </div>
+    <>
+      {searchValue.length === 0 ? (
+        <div className="orders">
+          <h1>Your Orders</h1>
+          <div className="orders__order">
+            {orders?.map((order) => (
+              <Order order={order} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <SearchList />
+      )}
+    </>
   );
 }
 

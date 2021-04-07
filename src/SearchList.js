@@ -6,17 +6,8 @@ import { useStateValue } from "./StateProvider";
 
 function SearchList() {
   const [{ basket, user, searchValue }, dispatch] = useStateValue();
-  const [items, setItems] = useState([]);
   const [loader, setLoader] = useState(true);
   const [searchProducts, setSearchProducts] = useState([]);
-
-  // let search = items.filter((product) => {
-  //   if (searchValue.length === 0) {
-  //     return "";
-  //   } else {
-  //     return product.title.toLowerCase().includes(searchValue?.toLowerCase());
-  //   }
-  // });
 
   let search;
 
@@ -43,66 +34,7 @@ function SearchList() {
       });
   }, [searchValue]);
 
-  // useEffect(() => {
-  //   fetch(`https://fakestoreapi.com/products`)
-  //     .then((res) => res.json())
-  //     .then((productsArray) => {
-  //       const newProductsState = productsArray.map((product) => {
-  //         return product;
-  //       });
-  //       setItems(newProductsState);
-  //       const search = items.filter((product) => {
-  //         if (searchValue.length === 0) {
-  //           return "";
-  //         } else {
-  //           return product.title
-  //             .toLowerCase()
-  //             .includes(searchValue?.toLowerCase());
-  //         }
-  //       });
-
-  //       setTimeout(() => {
-  //         setSearchProducts(search);
-  //       }, 2000);
-  //     });
-  // }, [setItems]);
-
-  console.log(items);
-
-  // useEffect(() => {
-  //   items.filter((product) => {
-  //     if (searchValue.length === 0) {
-  //       const search = "";
-  //     } else {
-  //       const search = product.title
-  //         .toLowerCase()
-  //         .includes(searchValue?.toLowerCase());
-  //     }
-  //     setSearchProducts(search);
-  //     setLoader(false);
-  //   });
-  // }, [searchValue]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setSearchProducts(search);
-  //   }, 2000);
-  // }, [search]);
-
   const hasProducts = searchProducts.length === 0;
-
-  //   useEffect(() => {
-  //     dispatch({
-  //       type: "SET_SEARCH_VALUE",
-  //       searchValue: "",
-  //     });
-  //   }, []);
-
-  // <p>{`We didnt find any results for "${searchValue}"`}</p>
-
-  console.log(searchProducts);
-  console.log(searchValue);
-  // console.log(search);
 
   return (
     <div className="searchList">

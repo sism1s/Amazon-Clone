@@ -36,8 +36,6 @@ function Header() {
     setSearchInput("");
   };
 
-  console.log(searchValue);
-
   return (
     <div className="header">
       <Link to="/" onClick={() => resetSearchValue("")}>
@@ -69,7 +67,13 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <div onClick={handleAuthentication} className="header__option">
+        <div
+          onClick={() => {
+            handleAuthentication();
+            resetSearchValue("");
+          }}
+          className="header__option"
+        >
           <span className="header__optionLineOne">
             Hello, {!user ? "Guest" : user.email}
           </span>
@@ -83,7 +87,11 @@ function Header() {
           </Link>
         </div>
 
-        <Link to="/orders" style={{ textDecoration: "none" }}>
+        <Link
+          to="/orders"
+          style={{ textDecoration: "none" }}
+          onClick={() => resetSearchValue("")}
+        >
           <div className="header__option">
             <span className="header__optionLineOne">Returns</span>
             <span className="header__optionLineTwo">& Orders</span>
@@ -95,7 +103,11 @@ function Header() {
           <span className="header__optionLineTwo">Prime</span>
         </div>
 
-        <Link to="/checkout" style={{ textDecoration: "none" }}>
+        <Link
+          to="/checkout"
+          style={{ textDecoration: "none" }}
+          onClick={() => resetSearchValue("")}
+        >
           <div className="header__optionBasket">
             <ShoppingBasketIcon />
             <span className="header__optionLineTwo header__basketCount">

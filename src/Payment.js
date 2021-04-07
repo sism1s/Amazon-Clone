@@ -9,9 +9,10 @@ import { getBasketTotal } from "./reducer";
 import axios from "./axios";
 import { db } from "./firebase";
 import { InsertEmoticon } from "@material-ui/icons";
+import SearchList from "./SearchList";
 
 function Payment() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ basket, user, searchValue }, dispatch] = useStateValue();
   const history = useHistory();
   const totalPrice = Math.round(getBasketTotal(basket).toFixed(2) * 100);
 
@@ -79,72 +80,82 @@ function Payment() {
   };
 
   return (
-    <div className="payment">
-      <div className="payment__container">
-        <h1>
-          Checkout (<Link to="/checkout">{basket?.length} items</Link>)
-        </h1>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Delivery Address</h3>
-          </div>
-          <div className="payment__address">
-            <p>{user?.email}</p>
-            <p>Great West Road 87</p>
-            <p>London, UK</p>
-          </div>
-        </div>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Review items and delivery</h3>
-          </div>
-          <div className="payment__items">
-            {basket.map((item) => (
-              <CheckoutProduct
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                image={item.image}
-                price={item.price}
-                description={item.description}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Payment Method</h3>
-          </div>
-          <div className="payment__details">
-            <form onSubmit={handleSubmit}>
-              <CardElement
-                onChange={handleChange}
-                className="payment__cardElement"
-              />
-              <div className="payment__priceContainer">
-                <CurrencyFormat
-                  renderText={(value) => <h3>Order Total: {value}</h3>}
-                  decimalScale={2}
-                  value={getBasketTotal(basket).toFixed(2)}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  prefix={"£"}
-                />
-                {!user ? (
-                  <p className="payment__proceed">Please Sign In to proceed.</p>
-                ) : (
-                  ""
-                )}
-                <button disabled={processing || disabled || succeeded || !user}>
-                  <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
-                </button>
+    <>
+      {searchValue.length === 0 ? (
+        <div className="payment">
+          <div className="payment__container">
+            <h1>
+              Checkout (<Link to="/checkout">{basket?.length} items</Link>)
+            </h1>
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Delivery Address</h3>
               </div>
-              {error && <div>{error}</div>}
-            </form>
+              <div className="payment__address">
+                <p>{user?.email}</p>
+                <p>Great West Road 87</p>
+                <p>London, UK</p>
+              </div>
+            </div>
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Review items and delivery</h3>
+              </div>
+              <div className="payment__items">
+                {basket.map((item) => (
+                  <CheckoutProduct
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    image={item.image}
+                    price={item.price}
+                    description={item.description}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="payment__section">
+              <div className="payment__title">
+                <h3>Payment Method</h3>
+              </div>
+              <div className="payment__details">
+                <form onSubmit={handleSubmit}>
+                  <CardElement
+                    onChange={handleChange}
+                    className="payment__cardElement"
+                  />
+                  <div className="payment__priceContainer">
+                    <CurrencyFormat
+                      renderText={(value) => <h3>Order Total: {value}</h3>}
+                      decimalScale={2}
+                      value={getBasketTotal(basket).toFixed(2)}
+                      displayType={"text"}
+                      thousandSeparator={true}
+                      prefix={"£"}
+                    />
+                    {!user ? (
+                      <p className="payment__proceed">
+                        Please Sign In to proceed.
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                    <button
+                      disabled={processing || disabled || succeeded || !user}
+                    >
+                      <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                    </button>
+                  </div>
+                  {error && <div>{error}</div>}
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <SearchList />
+      )}
+    </>
   );
 }
 
